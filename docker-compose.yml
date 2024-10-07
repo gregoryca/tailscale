@@ -1,0 +1,20 @@
+---
+services:
+  tailscale:
+    image: tailscale/tailscale:latest
+    hostname: tailscale
+    network_mode: host
+    container_name: tailscale
+    environment:
+      TAILSCALE_AUTH_KEY: 169285900c61b94c8380d986f2c4598151057cab38d2bc60
+      TAILSCALE_HOSTNAME: https://headscale.apex-migrations.net
+      TAILSCALE_STATE_ARG: "mem:"
+    volumes:
+      - ./tailscale/state:/var/lib/tailscale
+      - /dev/net/tun:/dev/net/tun # Required for tailscale to work
+      - /var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket
+    cap_add: # Required for tailscale to work
+      - NET_ADMIN
+      - sys_module 
+    command: tailscaled
+    restart: unless-stoppedk
