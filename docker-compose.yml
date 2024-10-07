@@ -17,4 +17,4 @@ services:
       - NET_ADMIN
       - sys_module 
     command: tailscaled
-    restart: unless-stoppedk
+    restart: unless-stopped
