@@ -7,10 +7,10 @@ services:
     container_name: tailscale
     privileged: true
     environment:
-      TAILSCALE_AUTH_KEY: 169285900c61b94c8380d986f2c4598151057cab38d2bc60
+      TAILSCALE_AUTH_KEY: ${{ AUTH_KEY }}
       TAILSCALE_HOSTNAME: https://headscale.apex-migrations.net
       TAILSCALE_STATE_ARG: "mem:"
-      TS_EXTRA_ARGS: tailscale up --login-server=https://headscale.apex-migrations.net --reset --advertise-exit-node
+      TS_EXTRA_ARGS: tailscale up --login-server=https://headscale.apex-migrations.net --reset 
       TS_USERSPACE: false
     volumes:
       - ./tailscale/state:/var/lib/tailscale
@@ -21,9 +21,3 @@ services:
       - sys_module
     command: tailscaled
     restart: unless-stopped
-#     networks:
-#       - web-secure
-
-# networks:
-#  web-secure:
-#    external: true
